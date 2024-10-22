@@ -42,13 +42,9 @@ public class MyFIRSTJavaOpMode extends LinearOpMode {
       claw.setPower(1);
       sleep(500);
       Backward(500, 1);
-      Left(2250, 1);
-      Forward(1750, 1);
-      Left(1500, 1);
-      Right(500, 1);
-      Forward(500, 1);
-      Left(750, 1);
-      Backward(2000, 1);
+      Left(3000, 1);
+      armTilt.setPower(1);
+      
       
       
       
@@ -162,6 +158,17 @@ public class MyFIRSTJavaOpMode extends LinearOpMode {
       backRightDrive.setPower(0);
     }
     public void turnRight(int time, int power) {
+      frontLeftDrive.setPower(-power);
+      backLeftDrive.setPower(-power);
+      frontRightDrive.setPower(power);
+      backRightDrive.setPower(power);
+      sleep(time);
+      frontLeftDrive.setPower(0);
+      backLeftDrive.setPower(0);
+      frontRightDrive.setPower(0);
+      backRightDrive.setPower(0);
+    }
+    public void armUp(int time, int power) {
       frontLeftDrive.setPower(-power);
       backLeftDrive.setPower(-power);
       frontRightDrive.setPower(power);
