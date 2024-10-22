@@ -32,8 +32,25 @@ public class MyFIRSTJavaOpMode extends LinearOpMode {
       backRightDrive.setDirection(DcMotorSimple.Direction.REVERSE);
 
       // Put initialization blocks here
+      claw.setPower(-1);
+      sleep(100);
+      Forward(1000, 1);
+      armTilt.setPower(1);
+      sleep(500);
+      armTilt.setPower(0);
+      sleep(200);
+      claw.setPower(1);
+      sleep(500);
+      Backward(500, 1);
+      Left(2250, 1);
+      Forward(1750, 1);
+      Left(1500, 1);
+      Right(500, 1);
+      Forward(500, 1);
+      Left(750, 1);
+      Backward(2000, 1);
       
-      Forward(1250, 1);
+      
       
     }
     
