@@ -35,15 +35,34 @@ public class MyFIRSTJavaOpMode extends LinearOpMode {
       claw.setPower(-1);
       sleep(100);
       Forward(1000, 1);
-      armTilt.setPower(1);
-      sleep(500);
+      armDown(500, 1);
+      
       armTilt.setPower(0);
       sleep(200);
       claw.setPower(1);
       sleep(500);
+      // -=-
       Backward(500, 1);
       Left(3000, 1);
-      armTilt.setPower(1);
+      armDown(500, 1);
+      Forward(150, 1);
+      claw.setPower(-1);
+      sleep(1000);
+      armUp(1000, 1);
+      turnLeft(2000, 1);
+      armExtend.setPower(1);
+      sleep(1000);
+      armDown(275, 1);
+      sleep(100);
+      claw.setPower(1);
+      /*
+      
+      NOTE: Normally would stop making the claw go at the -=-
+      to not overstress the servos, but the 
+      laws of physics do not apply in ftcsim
+      so we let it run 
+      */
+      
       
       
       
@@ -169,14 +188,13 @@ public class MyFIRSTJavaOpMode extends LinearOpMode {
       backRightDrive.setPower(0);
     }
     public void armUp(int time, int power) {
-      frontLeftDrive.setPower(-power);
-      backLeftDrive.setPower(-power);
-      frontRightDrive.setPower(power);
-      backRightDrive.setPower(power);
+      armTilt.setPower(-power);
       sleep(time);
-      frontLeftDrive.setPower(0);
-      backLeftDrive.setPower(0);
-      frontRightDrive.setPower(0);
-      backRightDrive.setPower(0);
+      armTilt.setPower(0);
+    }
+    public void armDown(int time, int power) {
+      armTilt.setPower(power);
+      sleep(time);
+      armTilt.setPower(0);
     }
 }
