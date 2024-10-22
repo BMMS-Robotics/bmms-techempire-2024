@@ -33,8 +33,7 @@ public class MyFIRSTJavaOpMode extends LinearOpMode {
 
       // Put initialization blocks here
       
-      
-      TurnLeft(1250, 1);
+      Forward(1250, 1);
       
     }
     
