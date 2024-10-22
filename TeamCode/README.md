@@ -1,6 +1,28 @@
---TECH EMPIRE 2024 TEAM CODE--
+#--TECH EMPIRE 2024 TEAM CODE--
+FTC, is it FIRST Technical Challenge or Federal Trade Commission?
 <br>
-top secret plan
+Don't plagarize the code, that's not cool dudes
 <br>
 <br>
-Start with specimen, score with low bar and push the rest of them into bottom basket
+#top secret plan
+<br>
+<br>
+turns out the previous plan was "illegal" and "herding" so we have a new plan
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+...
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+I'm not telling you what it is
