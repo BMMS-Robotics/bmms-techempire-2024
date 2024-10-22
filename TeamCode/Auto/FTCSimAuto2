@@ -73,6 +73,21 @@ public class MyFIRSTJavaOpMode extends LinearOpMode {
       sleep(1000);
       armDown(500, 1);
       claw.setPower(1);
+      //-=-
+      //22125ms so far or 22.125 seconds
+      turnLeft(1500, 1);
+      armExtend.setPower(-1);
+      Forward(6000, 1);
+      //29.625 seconds
+      //Points: 17
+      //Specimen on lower bar: 6pts
+      //Sample in lower basket X2: 8pts
+      //Parking in observation zone: 3pts
+      //not bad
+      
+      
+      
+      
       
       /*
       
