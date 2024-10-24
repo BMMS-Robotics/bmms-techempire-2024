@@ -68,7 +68,7 @@ public class MyFIRSTJavaOpMode extends LinearOpMode {
       Backward(50, 1);
       armDown(900, 1);
       claw.setPower(-1);
-      sleep(2000);
+      sleep(1000);
       armUp(1000, 1);
       turnLeft(2250, 1);
       armExtend.setPower(1);
@@ -95,7 +95,12 @@ public class MyFIRSTJavaOpMode extends LinearOpMode {
       turnLeft(700, 1);
       armExtend.setPower(1);
       sleep(1000);
+      Forward(250, 1);
       armDown(500, 1);
+      claw.setPower(1);
+      armUp(500, 1);
+      turnLeft(1775, 1);
+      Forward(5500, 1);
       
       
     //   turnRight(1700, 1);
@@ -111,8 +116,8 @@ public class MyFIRSTJavaOpMode extends LinearOpMode {
       //armExtend.setPower(-1);
       //Forward(6000, 1);
       
-      //14 seconds (somehow??? let this be proof im not going crazy)
-      //Points: 17
+      //20 seconds (somehow??? let this be proof im not going crazy)
+      //Points: 21
       //Specimen on lower bar: 6pts
       //Sample in lower basket X2: 8pts
       //Parking in observation zone: 3pts
@@ -264,6 +269,13 @@ public class MyFIRSTJavaOpMode extends LinearOpMode {
       armTilt.setPower(power);
       sleep(time);
       armTilt.setPower(0);
+    }
+    
+    public void armArm(int arm) {
+       frontLeftDrive.setPower(-power);
+       backLeftDrive.setPower(-power);
+       frontRightDrive.setPower(power);
+       backRightDrive.setPower(power); 
     }
 }
 
