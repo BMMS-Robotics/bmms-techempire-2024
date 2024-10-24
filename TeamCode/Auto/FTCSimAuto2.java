@@ -1,4 +1,3 @@
-
 /***********************************************************************
 *                                                                      *
 * OnbotJava Editor is still : beta! Please inform us of any bugs       |
@@ -32,6 +31,7 @@ public class MyFIRSTJavaOpMode extends LinearOpMode {
       backRightDrive.setDirection(DcMotorSimple.Direction.REVERSE);
 
       // Put initialization blocks here
+      
       claw.setPower(-1);
       sleep(100);
       Forward(1000, 1);
@@ -102,6 +102,7 @@ public class MyFIRSTJavaOpMode extends LinearOpMode {
       
       
     }
+
     
     public void Forward(int time, int power) {
       frontLeftDrive.setPower(-power);
@@ -232,3 +233,4 @@ public class MyFIRSTJavaOpMode extends LinearOpMode {
       armTilt.setPower(0);
     }
 }
+
