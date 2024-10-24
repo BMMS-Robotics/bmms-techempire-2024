@@ -32,6 +32,8 @@ public class MyFIRSTJavaOpMode extends LinearOpMode {
 
       // Put initialization blocks here
       
+      
+      
       claw.setPower(-1);
       sleep(100);
       Forward(1000, 1);
@@ -60,7 +62,7 @@ public class MyFIRSTJavaOpMode extends LinearOpMode {
       //-=-
       armExtend.setPower(-1);
       //-=-
-      
+      //
       turnRight(2000, 1);
       Left(600, 1);
       Backward(50, 1);
@@ -70,15 +72,46 @@ public class MyFIRSTJavaOpMode extends LinearOpMode {
       armUp(1000, 1);
       turnLeft(2250, 1);
       armExtend.setPower(1);
+      
       sleep(1000);
-      armDown(500, 1);
+      armDown(100, 1);
       claw.setPower(1);
       //-=-
-      //22125ms so far or 22.125 seconds
-      turnLeft(1500, 1);
       armExtend.setPower(-1);
-      Forward(6000, 1);
-      //29.625 seconds
+      //-=-
+      turnRight(2250, 1);
+      Right(500, 1);
+      //E 400
+      //K 450
+      //O 425
+      Forward(1500, 1);
+      turnLeft(1300, 1);
+      Backward(350, 1);
+      armDown(1000, 1);
+      claw.setPower(-1);
+      sleep(1500);
+      armUp(1000, 1);
+      Left(1000, 1);
+      turnLeft(700, 1);
+      armExtend.setPower(1);
+      sleep(1000);
+      armDown(500, 1);
+      
+      
+    //   turnRight(1700, 1);
+    //   armDown(1000, 1);
+    //   Backward(100, 1);
+      
+      
+      
+      
+      
+      
+      //turnLeft(1500, 1);
+      //armExtend.setPower(-1);
+      //Forward(6000, 1);
+      
+      //14 seconds (somehow??? let this be proof im not going crazy)
       //Points: 17
       //Specimen on lower bar: 6pts
       //Sample in lower basket X2: 8pts
