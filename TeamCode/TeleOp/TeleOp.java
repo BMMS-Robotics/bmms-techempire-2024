@@ -48,14 +48,16 @@ public class MecanumTeleOp extends LinearOpMode {
 
             double clawPower = gamepad1.right_trigger - gamepad1.left_trigger; // Takes input values of triggers (assuming values of 0-1) and subtracts
 
-            double extend = gamepad1.dpad_up - gamepad1.dpad_down;
-            double arm = gamepad1.buttony - gamepad1.buttona;
+            double extendPower = gamepad1.dpad_up - gamepad1.dpad_down;
+            double armPower = gamepad1.buttony - gamepad1.buttona;
 
             frontLeftMotor.setPower(frontLeftPower);
             backLeftMotor.setPower(backLeftPower);
             frontRightMotor.setPower(frontRightPower);
             backRightMotor.setPower(backRightPower);
             claw.setPower(clawPower);
+            arm.setPower(armPower);
+            extend.setPower(extendPower);
         }
     }
 }
