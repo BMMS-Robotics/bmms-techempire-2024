@@ -16,9 +16,9 @@ public class MecanumTeleOp extends LinearOpMode {
         DcMotor backLeftMotor = hardwareMap.dcMotor.get("backLeftMotor");
         DcMotor frontRightMotor = hardwareMap.dcMotor.get("frontRightMotor");
         DcMotor backRightMotor = hardwareMap.dcMotor.get("backRightMotor");
-        DcMotor arm = hardwareMap.dcMotor.get("armMotor");
-        Servo extend = hardwareMap.get(Servo.class, "gripper");
-        Servo claw = hardwareMap.get(Servo.class, "wrist");
+        DcMotor extend = hardwareMap.dcMotor.get("extend");
+        Servo arm = hardwareMap.get(Servo.class, "arm");
+        Servo claw = hardwareMap.get(Servo.class, "claw");
 
         // Reverse the right side motors. This may be wrong for your setup.
         // If your robot moves backwards when commanded to go forwards,
@@ -32,6 +32,7 @@ public class MecanumTeleOp extends LinearOpMode {
         if (isStopRequested()) return;
 
         while (opModeIsActive()) {
+            //left_trigger, right_
             double y = gamepad1.left_stick_y; // Remember, Y stick value is (no longer) reversed
             double x = gamepad1.left_stick_x * 1.1; // Counteract imperfect strafing
             double rx = gamepad1.right_stick_x;
@@ -45,10 +46,13 @@ public class MecanumTeleOp extends LinearOpMode {
             double frontRightPower = (y - x - rx) / denominator;
             double backRightPower = (y + x - rx) / denominator;
 
+            double clawPower = gamepad1.right_trigger - gamepad1.left_trigger; // Takes input values of triggers (assuming values of 0-1) and subtracts
+
             frontLeftMotor.setPower(frontLeftPower);
             backLeftMotor.setPower(backLeftPower);
             frontRightMotor.setPower(frontRightPower);
             backRightMotor.setPower(backRightPower);
+            claw.setPower(clawPower);
         }
     }
 }
