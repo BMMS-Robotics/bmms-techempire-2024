@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import org.firstinspires.ftc.robotcore.external.Telemetry;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -18,7 +19,7 @@ public class TeleOp2 extends LinearOpMode {
         DcMotor frontRightMotor = hardwareMap.dcMotor.get("frontRightMotor");
         DcMotor backRightMotor = hardwareMap.dcMotor.get("backRightMotor");
         DcMotor extend = hardwareMap.dcMotor.get("linearSlide");
-        //Servo arm = hardwareMap.get(Servo.class, "arm");
+        Servo arm = hardwareMap.get(Servo.class, "arm");
         Servo claw = hardwareMap.get(Servo.class, "claw");
 
         // Reverse the right side motors. This may be wrong for your setup.
@@ -46,44 +47,63 @@ public class TeleOp2 extends LinearOpMode {
             double backLeftPower = (y - x + rx) / denominator;
             double frontRightPower = (y - x - rx) / denominator;
             double backRightPower = (y + x - rx) / denominator;
+            
+            //arm.setPower(0.5);
 
             //double clawPower = gamepad1.right_trigger - gamepad1.left_trigger; // Takes input values of triggers (assuming values of 0-1) and subtracts
             
             double extendPower = 0;
             double armPower = 0;
-            if (gamepad2.dpad_up == true) {
-                extendPower = 1;
-            } else if (gamepad2.dpad_down == true) {
+            double desiredArmLoc = 0;
+            
+            if (gamepad1.dpad_up == true) {
                 extendPower = -1;
+            } else if (gamepad1.dpad_down == true) {
+                extendPower = 1;
             } else {
                 extendPower = 0;
             }
             double clawPower = 0;
-            if (gamepad2.right_trigger == 1) {
-                clawPower = 1;
-            } else if (gamepad2.left_trigger == 1) {
-                clawPower = -1;
-            } else {
-                clawPower = 0;
+            if (gamepad1.right_trigger == 1) {
+                claw.setPosition(0);
+            } else if (gamepad1.left_trigger == 1) {
+                claw.setPosition(1);
             }
+            // } else {
+            //     clawPower = 0;
+            // }
             //double extendPower = gamepad1.dpad_up - gamepad1.dpad_down;
             
             //double armPower = gamepad1.y - gamepad1.a;
-            if (gamepad2.y == true) {
-                armPower = 1;
-            } else if (gamepad2.a == true) {
-                armPower = -1;
+            // if (gamepad1.y == true) {
+            //     armPower = 1;
+            // } else if (gamepad1.a == true) {
+            //     armPower = -1;
+            // } else {
+            //     armPower = 0;
+            // }
+            if (gamepad1.y == true) {
+                arm.setPosition(0);
+                
+                
+            } else if (gamepad1.a == true) {
+                arm.setPosition(1);
+                
             } else {
-                armPower = 0;
+                
             }
+            
             
             frontLeftMotor.setPower(frontLeftPower);
             backLeftMotor.setPower(backLeftPower);
             frontRightMotor.setPower(frontRightPower);
             backRightMotor.setPower(backRightPower);
-            claw.setPosition(clawPower);
-            //arm.setPower(armPower);
+            //claw.setPosition(clawPower);
+            //arm.setPosition(desiredArmLoc);
             extend.setPower(extendPower);
+            //telemetry.addData("A", gamepad1.a);
+
+            //Use buttons to set desired position and then set motor to position
         }
     }
 }
