@@ -36,7 +36,7 @@ public class TeleOp2 extends LinearOpMode {
             //left_trigger, right_
             double y = gamepad1.left_stick_y; // Remember, Y stick value is (no longer) reversed
             double x = -gamepad1.left_stick_x * 1.1; // Counteract imperfect strafing
-            double rx = -gamepad1.right_stick_x;
+            double rx = -gamepad2.right_stick_x;
 
             // Denominator is the largest motor power (absolute value) or 1
             // This ensures all the powers maintain the same ratio,
@@ -51,17 +51,17 @@ public class TeleOp2 extends LinearOpMode {
             
             double extendPower = 0;
             double armPower = 0;
-            if (gamepad1.dpad_up == true) {
+            if (gamepad2.dpad_up == true) {
                 extendPower = 1;
-            } else if (gamepad1.dpad_down == true) {
+            } else if (gamepad2.dpad_down == true) {
                 extendPower = -1;
             } else {
                 extendPower = 0;
             }
             double clawPower = 0;
-            if (gamepad1.right_trigger == 1) {
+            if (gamepad2.right_trigger == 1) {
                 clawPower = 1;
-            } else if (gamepad1.left_trigger == 1) {
+            } else if (gamepad2.left_trigger == 1) {
                 clawPower = -1;
             } else {
                 clawPower = 0;
@@ -69,9 +69,9 @@ public class TeleOp2 extends LinearOpMode {
             //double extendPower = gamepad1.dpad_up - gamepad1.dpad_down;
             
             //double armPower = gamepad1.y - gamepad1.a;
-            if (gamepad1.y == true) {
+            if (gamepad2.y == true) {
                 armPower = 1;
-            } else if (gamepad1.a == true) {
+            } else if (gamepad2.a == true) {
                 armPower = -1;
             } else {
                 armPower = 0;
