@@ -28,16 +28,20 @@ public class TeleOp2 extends LinearOpMode {
         // See the note about this earlier on this page.
         frontRightMotor.setDirection(DcMotorSimple.Direction.REVERSE);
         backRightMotor.setDirection(DcMotorSimple.Direction.REVERSE);
-
+        double desiredArmPos = 1;
+        double slowMo = 1;
+        extend.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER)
         waitForStart();
 
         if (isStopRequested()) return;
 
         while (opModeIsActive()) {
             //left_trigger, right_
-            double y = gamepad1.right_stick_y; // Remember, Y stick value is (no longer) reversed
-            double x = -gamepad1.right_stick_x * 1.1; // Counteract imperfect strafing
-            double rx = -gamepad1.left_stick_x;
+            
+            //POTENTIAL add slow-mo toggle
+            double y = gamepad1.right_stick_y / slowMo; // Remember, Y stick value is (no longer) reversed
+            double x = -gamepad1.right_stick_x * 1.1 / slowMo; // Counteract imperfect strafing
+            double rx = -gamepad1.left_stick_x / slowMo;
 
             // Denominator is the largest motor power (absolute value) or 1
             // This ensures all the powers maintain the same ratio,
@@ -54,44 +58,50 @@ public class TeleOp2 extends LinearOpMode {
             
             double extendPower = 0;
             double armPower = 0;
-            double desiredArmLoc = 0;
+            
             
             if (gamepad1.dpad_up == true) {
-                extendPower = -1;
+                // extendPower = -1;
+                target_pos_ticks += 100;
+                sleep(10);
             } else if (gamepad1.dpad_down == true) {
-                extendPower = 1;
-            } else {
-                extendPower = 0;
+                // extendPower = 1;
+                target_pos_ticks -= 100;
+                sleep(10);
             }
-            double clawPower = 0;
+            
+            //Get the claw
             if (gamepad1.right_trigger == 1) {
                 claw.setPosition(0);
             } else if (gamepad1.left_trigger == 1) {
                 claw.setPosition(1);
             }
-            // } else {
-            //     clawPower = 0;
-            // }
-            //double extendPower = gamepad1.dpad_up - gamepad1.dpad_down;
             
-            //double armPower = gamepad1.y - gamepad1.a;
-            // if (gamepad1.y == true) {
-            //     armPower = 1;
-            // } else if (gamepad1.a == true) {
-            //     armPower = -1;
-            // } else {
-            //     armPower = 0;
-            // }
-            if (gamepad1.y == true) {
-                arm.setPosition(0);
-                
-                
-            } else if (gamepad1.a == true) {
-                arm.setPosition(1);
-                
-            } else {
-                
+            //Slowmo mode, maybe switch to triggers later?
+            if (gamepad1.x == true) {
+                slowMo = 6;
             }
+            if (gamepad1.b == true) {
+                slowMo = 1.5;
+            }
+            
+            if (gamepad1.y == true) {
+                desiredArmPos += 0.01;
+                sleep(25);
+            } else if (gamepad1.a == true) {
+                desiredArmPos -= 0.01;
+                sleep(25);
+            }
+            //Limits to prevent claw from slamming against floor or robot
+            if (desiredArmPos > 0.9) {
+                desiredArmPos = 0.9;
+            }
+            if (desiredArmPos < 0.6) {
+                desiredArmPos = 0.6;
+            }
+            
+            
+            
             
             
             frontLeftMotor.setPower(frontLeftPower);
@@ -99,11 +109,9 @@ public class TeleOp2 extends LinearOpMode {
             frontRightMotor.setPower(frontRightPower);
             backRightMotor.setPower(backRightPower);
             //claw.setPosition(clawPower);
-            //arm.setPosition(desiredArmLoc);
+            arm.setPosition(desiredArmPos);
             extend.setPower(extendPower);
             //telemetry.addData("A", gamepad1.a);
-
-            //Use buttons to set desired position and then set motor to position
         }
     }
 }
