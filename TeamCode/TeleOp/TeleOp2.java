@@ -9,6 +9,9 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
 @TeleOp
 public class TeleOp2 extends LinearOpMode {
+    
+    private LinearArmController slideController;
+    
     @Override
     public void runOpMode() throws InterruptedException {
         
@@ -19,8 +22,12 @@ public class TeleOp2 extends LinearOpMode {
         DcMotor frontRightMotor = hardwareMap.dcMotor.get("frontRightMotor");
         DcMotor backRightMotor = hardwareMap.dcMotor.get("backRightMotor");
         DcMotor extend = hardwareMap.dcMotor.get("linearSlide");
+        slideController = new LinearArmController(extend);
+        extend.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        extend.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         Servo arm = hardwareMap.get(Servo.class, "arm");
         Servo claw = hardwareMap.get(Servo.class, "claw");
+        
 
         // Reverse the right side motors. This may be wrong for your setup.
         // If your robot moves backwards when commanded to go forwards,
@@ -56,15 +63,16 @@ public class TeleOp2 extends LinearOpMode {
 
             //double clawPower = gamepad1.right_trigger - gamepad1.left_trigger; // Takes input values of triggers (assuming values of 0-1) and subtracts
             
-            double extendPower = 0;
+            //double extendPower = 0;
             double armPower = 0;
             
             
             if (gamepad1.dpad_up == true) {
-                extendPower = -1;
+                //extendPower = -1;
+                slideController.extendArm();
                 
             } else if (gamepad1.dpad_down == true) {
-                extendPower = 1;
+                //extendPower = 1;
                 
             }
             
@@ -102,19 +110,30 @@ public class TeleOp2 extends LinearOpMode {
             
             
             
+            
+            
+            
             frontLeftMotor.setPower(frontLeftPower);
             backLeftMotor.setPower(backLeftPower);
             frontRightMotor.setPower(frontRightPower);
             backRightMotor.setPower(backRightPower);
             //claw.setPosition(clawPower);
             arm.setPosition(desiredArmPos);
-            extend.setPower(extendPower);
-            
+            //extend.setPower(extendPower);
+            slideController.stopIfReached();
             //telemetry.addData("A", gamepad1.a);
+            telemetry.addData("Arm Target Position", LinearArmController.TARGET_POSITION_TICKS);
+            telemetry.addData("Arm Position", extend.getCurrentPosition());
+            telemetry.addData("Arm Motor Power", extend.getPower());
+            telemetry.addData("Arm Busy", extend.isBusy());
+            
+            telemetry.update();
             
         }
         
         
     }
+    
+
     
 }
