@@ -30,7 +30,7 @@ public class TeleOp2 extends LinearOpMode {
         backRightMotor.setDirection(DcMotorSimple.Direction.REVERSE);
         double desiredArmPos = 1;
         double slowMo = 1;
-        extend.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER)
+        
         waitForStart();
 
         if (isStopRequested()) return;
@@ -61,13 +61,11 @@ public class TeleOp2 extends LinearOpMode {
             
             
             if (gamepad1.dpad_up == true) {
-                // extendPower = -1;
-                target_pos_ticks += 100;
-                sleep(10);
+                extendPower = -1;
+                
             } else if (gamepad1.dpad_down == true) {
-                // extendPower = 1;
-                target_pos_ticks -= 100;
-                sleep(10);
+                extendPower = 1;
+                
             }
             
             //Get the claw
@@ -79,10 +77,10 @@ public class TeleOp2 extends LinearOpMode {
             
             //Slowmo mode, maybe switch to triggers later?
             if (gamepad1.x == true) {
-                slowMo = 6;
+                slowMo = 10;
             }
             if (gamepad1.b == true) {
-                slowMo = 1.5;
+                slowMo = 2.5;
             }
             
             if (gamepad1.y == true) {
@@ -111,7 +109,12 @@ public class TeleOp2 extends LinearOpMode {
             //claw.setPosition(clawPower);
             arm.setPosition(desiredArmPos);
             extend.setPower(extendPower);
+            
             //telemetry.addData("A", gamepad1.a);
+            
         }
+        
+        
     }
+    
 }
