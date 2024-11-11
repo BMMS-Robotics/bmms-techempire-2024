@@ -36,7 +36,7 @@ public class TeleOp2 extends LinearOpMode {
         frontRightMotor.setDirection(DcMotorSimple.Direction.REVERSE);
         backRightMotor.setDirection(DcMotorSimple.Direction.REVERSE);
         double desiredArmPos = 1;
-        double slowMo = 1;
+        double slowMo = 2.5;
         
         waitForStart();
 
@@ -73,6 +73,7 @@ public class TeleOp2 extends LinearOpMode {
                 
             } else if (gamepad1.dpad_down == true) {
                 //extendPower = 1;
+                slideController.retractArm();
                 
             }
             
@@ -85,10 +86,18 @@ public class TeleOp2 extends LinearOpMode {
             
             //Slowmo mode, maybe switch to triggers later?
             if (gamepad1.x == true) {
-                slowMo = 10;
+                slowMo -= 0.5;
+                sleep(25);
             }
             if (gamepad1.b == true) {
-                slowMo = 2.5;
+                slowMo += 0.5;
+                sleep(25);
+            }
+            if (slowMo > 7.5) {
+                slowMo = 7.5;
+            }
+            if (slowMo < 1.5) {
+                slowMo = 1.5;
             }
             
             if (gamepad1.y == true) {
