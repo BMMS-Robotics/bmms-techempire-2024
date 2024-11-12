@@ -10,7 +10,7 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 @TeleOp
 public class TeleOp2 extends LinearOpMode {
     
-    private LinearArmController slideController;
+    private LinearSlideController slideController;
     
     @Override
     public void runOpMode() throws InterruptedException {
@@ -22,7 +22,7 @@ public class TeleOp2 extends LinearOpMode {
         DcMotor frontRightMotor = hardwareMap.dcMotor.get("frontRightMotor");
         DcMotor backRightMotor = hardwareMap.dcMotor.get("backRightMotor");
         DcMotor extend = hardwareMap.dcMotor.get("linearSlide");
-        slideController = new LinearArmController(extend);
+        slideController = new LinearSlideController(extend);
         extend.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         extend.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         Servo arm = hardwareMap.get(Servo.class, "arm");
@@ -67,13 +67,13 @@ public class TeleOp2 extends LinearOpMode {
             double armPower = 0;
             
             
-            if (gamepad1.dpad_up == true) {
+            if (gamepad2.dpad_up == true) {
                 //extendPower = -1;
                 slideController.TARGET_POSITION_TICKS += 100;
                 sleep(25);
                 //slideController.extendArm();
                 
-            } else if (gamepad1.dpad_down == true) {
+            } else if (gamepad2.dpad_down == true) {
                 //extendPower = 1;
                 slideController.TARGET_POSITION_TICKS -= 100;
                 sleep(25);
@@ -88,19 +88,19 @@ public class TeleOp2 extends LinearOpMode {
             }
             
             //Get the claw
-            if (gamepad1.right_trigger == 1) {
+            if (gamepad2.right_trigger == 1) {
                 claw.setPosition(0);
-            } else if (gamepad1.left_trigger == 1) {
+            } else if (gamepad2.left_trigger == 1) {
                 claw.setPosition(1);
             }
             
             //Slowmo mode, maybe switch to triggers later?
             if (gamepad1.x == true) {
-                slowMo -= 0.5;
+                slowMo += 0.5;
                 sleep(25);
             }
             if (gamepad1.b == true) {
-                slowMo += 0.5;
+                slowMo -= 0.5;
                 sleep(25);
             }
             if (slowMo > 7.5) {
@@ -110,10 +110,10 @@ public class TeleOp2 extends LinearOpMode {
                 slowMo = 1.5;
             }
             
-            if (gamepad1.y == true) {
+            if (gamepad2.y == true) {
                 desiredArmPos += 0.025;
                 sleep(25);
-            } else if (gamepad1.a == true) {
+            } else if (gamepad2.a == true) {
                 desiredArmPos -= 0.025;
                 sleep(25);
             }
@@ -141,12 +141,11 @@ public class TeleOp2 extends LinearOpMode {
             //extend.setPower(extendPower);
             slideController.stopIfReached();
             //telemetry.addData("A", gamepad1.a);
-            telemetry.addData("Slide Target Position", LinearArmController.TARGET_POSITION_TICKS);
+            telemetry.addData("Slide Target Position", LinearSlideController.TARGET_POSITION_TICKS);
             telemetry.addData("Slide Position", extend.getCurrentPosition());
             telemetry.addData("Slide Motor Power", extend.getPower());
             telemetry.addData("Slide Busy", extend.isBusy());
-            telemetry.addData("Desired Slide Position", extend.isBusy());
-            slideController.extendArm();
+            slideController.extendSlide();
             telemetry.update();
             
         }
