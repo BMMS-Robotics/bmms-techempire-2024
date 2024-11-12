@@ -4,7 +4,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
 public class LinearArmController {
-    public static final int TARGET_POSITION_TICKS = 5000; // For 4 feet with a specific ticks-per-foot calculation
+    public static final int TARGET_POSITION_TICKS = 2000; // For 4 feet with a specific ticks-per-foot calculation
 
     private DcMotor armMotor;
     
