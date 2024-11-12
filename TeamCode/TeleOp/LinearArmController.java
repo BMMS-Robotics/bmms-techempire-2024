@@ -4,11 +4,11 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
 public class LinearArmController {
-    public static final int TARGET_POSITION_TICKS = 2000; // For 4 feet with a specific ticks-per-foot calculation
+    public static /*final*/ int TARGET_POSITION_TICKS = 0; // For 4 feet with a specific ticks-per-foot calculation
 
     private DcMotor armMotor;
     
-    int EXTEND_HEIGHT = 3850;
+    int MAX_EXTEND_HEIGHT = 3850;
 
     public LinearArmController(DcMotor motor) {
         this.armMotor = motor;
@@ -32,18 +32,11 @@ public class LinearArmController {
         // Start moving the arm to the target position
         armMotor.setTargetPosition(TARGET_POSITION_TICKS);
         armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        if (armMotor.getCurrentPosition() < EXTEND_HEIGHT) {
+        if (armMotor.getCurrentPosition() < MAX_EXTEND_HEIGHT) {
             armMotor.setPower(1); // Full power to reach target
         }
     }
-    public void retractArm() {
-        // Start moving the arm to the target position
-        armMotor.setTargetPosition(0);
-        armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        if (armMotor.getCurrentPosition() > 0) {
-            armMotor.setPower(-1); // Full power to reach target
-        }
-    }
+    
 
     public void stopIfReached() {
         // Check if the arm has reached its target position
@@ -52,7 +45,7 @@ public class LinearArmController {
             armMotor.setPower(0);
             //armMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER); // Reset encoder if needed
         }
-        if (armMotor.getCurrentPosition() > EXTEND_HEIGHT) {
+        if (armMotor.getCurrentPosition() > MAX_EXTEND_HEIGHT) {
             armMotor.setPower(0);
         }
         if (armMotor.getCurrentPosition() < 0) {
