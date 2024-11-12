@@ -111,10 +111,10 @@ public class TeleOp2 extends LinearOpMode {
             }
             
             if (gamepad1.y == true) {
-                desiredArmPos += 0.01;
+                desiredArmPos += 0.025;
                 sleep(25);
             } else if (gamepad1.a == true) {
-                desiredArmPos -= 0.01;
+                desiredArmPos -= 0.025;
                 sleep(25);
             }
             //Limits to prevent claw from slamming against floor or robot
@@ -141,10 +141,11 @@ public class TeleOp2 extends LinearOpMode {
             //extend.setPower(extendPower);
             slideController.stopIfReached();
             //telemetry.addData("A", gamepad1.a);
-            telemetry.addData("Arm Target Position", LinearArmController.TARGET_POSITION_TICKS);
-            telemetry.addData("Arm Position", extend.getCurrentPosition());
-            telemetry.addData("Arm Motor Power", extend.getPower());
-            telemetry.addData("Arm Busy", extend.isBusy());
+            telemetry.addData("Slide Target Position", LinearArmController.TARGET_POSITION_TICKS);
+            telemetry.addData("Slide Position", extend.getCurrentPosition());
+            telemetry.addData("Slide Motor Power", extend.getPower());
+            telemetry.addData("Slide Busy", extend.isBusy());
+            telemetry.addData("Desired Slide Position", extend.isBusy());
             slideController.extendArm();
             telemetry.update();
             
