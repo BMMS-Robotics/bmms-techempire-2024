@@ -69,12 +69,22 @@ public class TeleOp2 extends LinearOpMode {
             
             if (gamepad1.dpad_up == true) {
                 //extendPower = -1;
-                slideController.extendArm();
+                slideController.TARGET_POSITION_TICKS += 100;
+                sleep(25);
+                //slideController.extendArm();
                 
             } else if (gamepad1.dpad_down == true) {
                 //extendPower = 1;
-                slideController.retractArm();
+                slideController.TARGET_POSITION_TICKS -= 100;
+                sleep(25);
+                // slideController.retractArm();
                 
+            }
+            if (slideController.TARGET_POSITION_TICKS > slideController.MAX_EXTEND_HEIGHT) {
+                slideController.TARGET_POSITION_TICKS = slideController.MAX_EXTEND_HEIGHT;
+            }
+            if (slideController.TARGET_POSITION_TICKS < 0) {
+                slideController.TARGET_POSITION_TICKS = 0;
             }
             
             //Get the claw
@@ -135,7 +145,7 @@ public class TeleOp2 extends LinearOpMode {
             telemetry.addData("Arm Position", extend.getCurrentPosition());
             telemetry.addData("Arm Motor Power", extend.getPower());
             telemetry.addData("Arm Busy", extend.isBusy());
-            
+            slideController.extendArm();
             telemetry.update();
             
         }
