@@ -35,6 +35,9 @@ public class LinearArmController {
         if (armMotor.getCurrentPosition() < MAX_EXTEND_HEIGHT) {
             armMotor.setPower(1); // Full power to reach target
         }
+        if (armMotor.getCurrentPosition() <= 0 && TARGET_POSITION_TICKS == 0) { //Check if we're at/less than 0 and we want to be at 0. If so, turn off motor to reduce strain.
+            armMotor.setPower(0);
+        }
     }
     
 
