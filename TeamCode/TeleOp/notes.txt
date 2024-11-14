@@ -1,0 +1,4 @@
+Either jolting motor excessively or high inrush current
+Set checks to prevent unneeded turning on/off of the motor
+If that doesn't work, good luck
+(Or do some math to determine the power amount required to fight gravity and keep it in somewhat the same position)
