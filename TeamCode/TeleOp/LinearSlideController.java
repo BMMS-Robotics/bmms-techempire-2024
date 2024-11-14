@@ -4,19 +4,19 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
 public class LinearSlideController {
-    public static /*final*/ int TARGET_POSITION_TICKS = 0; // For 4 feet with a specific ticks-per-foot calculation
-    int POSITION_TOLERANCE = 10;
+    public static int TARGET_POSITION_TICKS = 0; // Set at 0, modified in the teleop script
+    int POSITION_TOLERANCE = 500; //Highish tolerance because gravity
 
     private DcMotor slideMotor;
     
     int MAX_EXTEND_HEIGHT = 3850;
 
     public LinearSlideController(DcMotor motor) {
+        //Magical initialization stuff
         this.slideMotor = motor;
 
         // Reset encoder to start at zero
         slideMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        //slideMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         // Set motor direction if needed
         slideMotor.setDirection(DcMotorSimple.Direction.REVERSE);
@@ -29,11 +29,11 @@ public class LinearSlideController {
         //slideMotor.setPower(0);
     }
 
-    public void extendSlide() {
-        // Start moving the arm to the target position
+    public void extendSlide() { //Keep in mind this is called every tick! (Or so)
+        //set target position and move to it i guess
         slideMotor.setTargetPosition(TARGET_POSITION_TICKS);
         slideMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        if (slideMotor.getCurrentPosition() != MAX_EXTEND_HEIGHT && slideMotor.getPower() == 0) {
+        if (slideMotor.getCurrentPosition() != MAX_EXTEND_HEIGHT && slideMotor.getPower() == 0) { //only apply the power if it's actually needed to prevent jolting the motor
             slideMotor.setPower(1); // Full power to reach target
         }
         //Maybe use abs value for better tolerance both up and down
@@ -48,8 +48,9 @@ public class LinearSlideController {
         if (!slideMotor.isBusy()) {
             // If the motor is no longer busy, stop the motor
             slideMotor.setPower(0);
-            //slideMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER); // Reset encoder if needed
+            //Can it automatically keep its pos at 0? Probably not, but if so maybe try resetting encoder
         }
+        //Limits to prevent motor from going bonkers, just in case
         if (slideMotor.getCurrentPosition() > MAX_EXTEND_HEIGHT) {
             slideMotor.setPower(0);
         }
