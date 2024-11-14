@@ -32,10 +32,10 @@ public class LinearSlideController {
         // Start moving the arm to the target position
         slideMotor.setTargetPosition(TARGET_POSITION_TICKS);
         slideMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        if (slideMotor.getCurrentPosition() < MAX_EXTEND_HEIGHT) {
+        if (slideMotor.getCurrentPosition() != MAX_EXTEND_HEIGHT && slideMotor.getPower() == 0) {
             slideMotor.setPower(1); // Full power to reach target
         }
-        if (slideMotor.getCurrentPosition() <= 0 && TARGET_POSITION_TICKS == 0) { //Check if we're at/less than 0 and we want to be at 0. If so, turn off motor to reduce strain.
+        if (slideMotor.getCurrentPosition() <= 0 && TARGET_POSITION_TICKS == 0 && slideMotor.getPower() != 1) { //Check if we're at/less than 0 and we want to be at 0. If so, turn off motor to reduce strain.
             slideMotor.setPower(0);
         }
     }
