@@ -89,9 +89,9 @@ public class TeleOp2 extends LinearOpMode {
             
             //Get the claw
             if (gamepad2.right_trigger == 1) {
-                claw.setPosition(0);
-            } else if (gamepad2.left_trigger == 1) {
                 claw.setPosition(1);
+            } else if (gamepad2.left_trigger == 1) {
+                claw.setPosition(0);
             }
             
             //Slowmo mode, maybe switch to triggers later?
