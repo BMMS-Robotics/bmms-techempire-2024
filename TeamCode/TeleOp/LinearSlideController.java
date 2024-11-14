@@ -5,6 +5,7 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
 public class LinearSlideController {
     public static /*final*/ int TARGET_POSITION_TICKS = 0; // For 4 feet with a specific ticks-per-foot calculation
+    int POSITION_TOLERANCE = 10;
 
     private DcMotor slideMotor;
     
@@ -35,7 +36,8 @@ public class LinearSlideController {
         if (slideMotor.getCurrentPosition() != MAX_EXTEND_HEIGHT && slideMotor.getPower() == 0) {
             slideMotor.setPower(1); // Full power to reach target
         }
-        if (slideMotor.getCurrentPosition() <= 0 && TARGET_POSITION_TICKS == 0 && slideMotor.getPower() != 1) { //Check if we're at/less than 0 and we want to be at 0. If so, turn off motor to reduce strain.
+        //Maybe use abs value for better tolerance both up and down
+        if (slideMotor.getCurrentPosition() <= POSITION_TOLERANCE && TARGET_POSITION_TICKS == 0 && slideMotor.getPower() != 1) { //Check if we're at/less than 0 and we want to be at 0. If so, turn off motor to reduce strain.
             slideMotor.setPower(0);
         }
     }
