@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
 public class LinearSlideController {
     public static int TARGET_POSITION_TICKS = 0; // Set at 0, modified in the teleop script
-    int POSITION_TOLERANCE = 500; //Highish tolerance because gravity
+    int POSITION_TOLERANCE = 10; //Highish tolerance because gravity
 
     private DcMotor slideMotor;
     
@@ -33,11 +33,21 @@ public class LinearSlideController {
         //set target position and move to it i guess
         slideMotor.setTargetPosition(TARGET_POSITION_TICKS);
         slideMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        /*
         if (slideMotor.getCurrentPosition() != MAX_EXTEND_HEIGHT && slideMotor.getPower() == 0) { //only apply the power if it's actually needed to prevent jolting the motor
             slideMotor.setPower(1); // Full power to reach target
         }
         //Maybe use abs value for better tolerance both up and down
-        if (slideMotor.getCurrentPosition() <= POSITION_TOLERANCE && TARGET_POSITION_TICKS == 0 && slideMotor.getPower() != 1) { //Check if we're at/less than 0 and we want to be at 0. If so, turn off motor to reduce strain.
+        if (slideMotor.getCurrentPosition() <= POSITION_TOLERANCE && TARGET_POSITION_TICKS <= POSITION_TOLERANCE && slideMotor.getPower() != 1) { //Check if we're at/less than 0 and we want to be at 0. If so, turn off motor to reduce strain.
+            slideMotor.setPower(0);
+        }
+        */
+        if (slideMotor.getCurrentPosition() != MAX_EXTEND_HEIGHT && TARGET_POSITION_TICKS >= POSITION_TOLERANCE && slideMotor.getPower() == 0) {
+            //  Ensure the motor is not out of its limit             If the target is lower than the position,          If the power's already on,
+            //  just in case                                         set the power to 0 to prevent unneeded strain      why turn it on again?
+            slideMotor.setPower(1);
+        }
+        if (TARGET_POSITION_TICKS <= POSITION_TOLERANCE && slideMotor.getPower() != 0) {
             slideMotor.setPower(0);
         }
     }
@@ -63,4 +73,3 @@ public class LinearSlideController {
 
 
 // main code
-
