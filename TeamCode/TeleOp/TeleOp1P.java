@@ -131,20 +131,30 @@ public class TeleOp1P extends LinearOpMode {
             
             
             
-            
+            //Various power things set to run every loop
+
+            //4 motors for movement
             frontLeftMotor.setPower(frontLeftPower);
             backLeftMotor.setPower(backLeftPower);
             frontRightMotor.setPower(frontRightPower);
             backRightMotor.setPower(backRightPower);
-            //claw.setPosition(clawPower);
+            
+            //Arm
             arm.setPosition(desiredArmPos);
             //extend.setPower(extendPower);
             slideController.stopIfReached();
-            //telemetry.addData("A", gamepad1.a);
+            //Telemetry
             telemetry.addData("Slide Target Position", LinearSlideController.TARGET_POSITION_TICKS);
             telemetry.addData("Slide Position", extend.getCurrentPosition());
             telemetry.addData("Slide Motor Power", extend.getPower());
             telemetry.addData("Slide Busy", extend.isBusy());
+            //experimental telemetry - has not been compiled
+            telemetry.addData("Forward Direction", y);
+            telemetry.addData("Sideways Direction", x);
+            telemetry.addData("Rotational Direction", rx);
+            telemetry.addData("Arm Position", arm.getPosition);
+            telemetry.addData("Desired Arm Position", desiredArmPos);
+            telemetry.addData("Claw", claw.getPosition);
             
             slideController.extendSlide();
             telemetry.update();
