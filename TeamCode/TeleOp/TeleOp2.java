@@ -121,8 +121,8 @@ public class TeleOp2 extends LinearOpMode {
             if (desiredArmPos > 0.9) {
                 desiredArmPos = 0.9;
             }
-            if (desiredArmPos < 0.6) {
-                desiredArmPos = 0.6;
+            if (desiredArmPos < 0.5) {
+                desiredArmPos = 0.5;
             }
             
             
