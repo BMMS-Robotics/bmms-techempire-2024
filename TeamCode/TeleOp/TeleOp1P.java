@@ -89,9 +89,9 @@ public class TeleOp1P extends LinearOpMode {
             
             //Get the claw
             if (gamepad1.right_trigger == 1) {
-                claw.setPosition(1);
-            } else if (gamepad1.left_trigger == 1) {
                 claw.setPosition(0);
+            } else if (gamepad1.left_trigger == 1) {
+                claw.setPosition(1);
             }
             
             //Slowmo mode, maybe switch to triggers later?
@@ -121,8 +121,8 @@ public class TeleOp1P extends LinearOpMode {
             if (desiredArmPos > 0.9) {
                 desiredArmPos = 0.9;
             }
-            if (desiredArmPos < 0.6) {
-                desiredArmPos = 0.6;
+            if (desiredArmPos < 0.5) {
+                desiredArmPos = 0.5;
             }
             
             
@@ -145,8 +145,10 @@ public class TeleOp1P extends LinearOpMode {
             telemetry.addData("Slide Position", extend.getCurrentPosition());
             telemetry.addData("Slide Motor Power", extend.getPower());
             telemetry.addData("Slide Busy", extend.isBusy());
+            
             slideController.extendSlide();
             telemetry.update();
+            
             //sleep(25);
             
         }
