@@ -7,7 +7,7 @@ public class GamepadHub {
 
     public GamepadHub(Gamepad primary) {
         this.primaryController = primary;
-    }
+    } orlando was here
 
     public GamepadHub(Gamepad primary, Gamepad secondary) {
         this.primaryController = primary;
